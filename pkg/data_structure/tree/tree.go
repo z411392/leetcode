@@ -19,3 +19,28 @@ func NewTreeFromSlice(slice []int, index int, null int) (node *TreeNode) {
 	node.Right = NewTreeFromSlice(slice, 2*index+2, null)
 	return
 }
+
+func ConvertTreeToSlice(root *TreeNode) []int {
+	slice := []int{}
+	if root == nil {
+		return []int{}
+	}
+	nodes := []*TreeNode{root}
+	for {
+		next := []*TreeNode{}
+		for _, node := range nodes {
+			slice = append(slice, node.Val)
+			if node.Left != nil {
+				next = append(next, node.Left)
+			}
+			if node.Right != nil {
+				next = append(next, node.Right)
+			}
+		}
+		if len(next) == 0 {
+			break
+		}
+		nodes = next
+	}
+	return slice
+}
