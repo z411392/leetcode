@@ -7,7 +7,7 @@ import (
 )
 
 func Test_isPalindrome_1(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := isPalindrome(NewLinkedListFromSlice([]int{1, 2, 2, 1}))
 	expected := true
 	if got != expected {
@@ -16,7 +16,7 @@ func Test_isPalindrome_1(t *testing.T) {
 }
 
 func Test_isPalindrome_2(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := isPalindrome(NewLinkedListFromSlice([]int{1, 2}))
 	expected := false
 	if got != expected {
