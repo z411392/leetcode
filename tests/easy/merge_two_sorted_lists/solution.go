@@ -1,6 +1,6 @@
 package merge_two_sorted_lists
 
-//lint:file-ignore ST1001 Dot imports are used for convenience in this test file
+//lint:file-ignore ST1001 _
 
 import (
 	"reflect"
@@ -9,47 +9,8 @@ import (
 	. "github.com/z411392/leetcode/pkg/data_structure/linked_list"
 )
 
-type ListNode = LinkedList[int]
-
-func newLinkedListFromStream[T any](streamCh <-chan T) *LinkedList[T] {
-	var head, current *LinkedList[T]
-
-	for value := range streamCh {
-		newNode := &LinkedList[T]{Val: value}
-
-		if head == nil {
-			head = newNode
-		} else {
-			current.Next = newNode
-		}
-		current = newNode
-	}
-
-	return head
-}
-
-func convertLinkedListToStream[T any](list *LinkedList[T]) <-chan T {
-	streamCh := make(chan T)
-	if list == nil {
-		close(streamCh)
-		return streamCh
-	}
-
-	go func() {
-		defer close(streamCh)
-
-		current := list
-		for current != nil {
-			streamCh <- current.Val
-			current = current.Next
-		}
-	}()
-
-	return streamCh
-}
-
-func merge[T any](lists ...*LinkedList[T]) <-chan T {
-	streamCh := make(chan T)
+func zip(lists ...*ListNode) <-chan int {
+	streamCh := make(chan int)
 
 	go func() {
 		defer close(streamCh)
@@ -62,7 +23,7 @@ func merge[T any](lists ...*LinkedList[T]) <-chan T {
 
 			cases = append(cases, reflect.SelectCase{
 				Dir:  reflect.SelectRecv,
-				Chan: reflect.ValueOf(convertLinkedListToStream(list)),
+				Chan: reflect.ValueOf(ConvertLinkedListToStream(list)),
 			})
 		}
 
@@ -76,7 +37,7 @@ func merge[T any](lists ...*LinkedList[T]) <-chan T {
 				cases = append(cases[:chosen], cases[chosen+1:]...)
 				continue
 			}
-			streamCh <- value.Interface().(T)
+			streamCh <- value.Interface().(int) // 將值從 channel 取出並轉型
 		}
 	}()
 
@@ -92,9 +53,9 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	minHeap := NewBinaryHeap(func(a, b int) bool {
 		return a < b
 	})
-	for value := range merge(list1, list2) {
+	for value := range zip(list1, list2) {
 		minHeap.Insert(value)
 	}
-	linkedList := newLinkedListFromStream(minHeap.ToStream())
+	linkedList := NewLinkedListFromStream(minHeap.ToStream())
 	return linkedList
 }

@@ -1,7 +1,8 @@
 package symmetric_tree
 
+//lint:file-ignore ST1001 _
+
 import (
-	//lint:ignore ST1001 _
 	. "github.com/z411392/leetcode/pkg/data_structure/tree"
 )
 

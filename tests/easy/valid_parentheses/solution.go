@@ -1,7 +1,5 @@
 package valid_parentheses
 
-//lint:file-ignore ST1001 Dot imports are used for convenience in this test file
-
 import (
 	. "github.com/z411392/leetcode/pkg/data_structure/stack"
 )
