@@ -9,7 +9,7 @@ func Test_climbStairs_1(t *testing.T) {
 	got := climbStairs(2)
 	expected := 2
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -18,7 +18,7 @@ func Test_climbStairs_2(t *testing.T) {
 	got := climbStairs(3)
 	expected := 3
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -27,6 +27,6 @@ func Test_climbStairs_3(t *testing.T) {
 	got := climbStairs(35)
 	expected := 14930352
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }

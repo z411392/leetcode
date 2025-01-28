@@ -15,7 +15,7 @@ func Test_invertTree_1(t *testing.T) {
 	got := ConvertTreeToSlice(invertTree(root))
 	expected := []int{4, 7, 2, 9, 6, 3, 1}
 	if !reflect.DeepEqual(got, expected) {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -25,7 +25,7 @@ func Test_invertTree_2(t *testing.T) {
 	got := ConvertTreeToSlice(invertTree(root))
 	expected := []int{2, 3, 1}
 	if !reflect.DeepEqual(got, expected) {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -35,6 +35,6 @@ func Test_invertTree_3(t *testing.T) {
 	got := ConvertTreeToSlice(invertTree(root))
 	expected := []int{}
 	if !reflect.DeepEqual(got, expected) {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }

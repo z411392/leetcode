@@ -57,7 +57,7 @@ func Test_getIntersectionNode_1(t *testing.T) {
 	got := getIntersectionNode(listA, listB)
 	expected := intersection
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -102,7 +102,7 @@ func Test_getIntersectionNode_2(t *testing.T) {
 	got := getIntersectionNode(listA, listB)
 	expected := intersection
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -140,6 +140,6 @@ func Test_getIntersectionNode_3(t *testing.T) {
 	got := getIntersectionNode(listA, listB)
 	expected := intersection
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }

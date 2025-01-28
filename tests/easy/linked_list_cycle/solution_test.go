@@ -32,7 +32,7 @@ func Test_hasCycle_1(t *testing.T) {
 	got := hasCycle(list)
 	expected := true
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -54,6 +54,6 @@ func Test_hasCycle_2(t *testing.T) {
 	got := hasCycle(list)
 	expected := true
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }

@@ -13,7 +13,7 @@ func Test_inorderTraversal_1(t *testing.T) {
 	got := inorderTraversal(root)
 	expected := []int{1, 3, 2}
 	if !reflect.DeepEqual(got, expected) {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -23,7 +23,7 @@ func Test_inorderTraversal_2(t *testing.T) {
 	got := inorderTraversal(root)
 	expected := []int{4, 2, 6, 5, 7, 1, 3, 9, 8}
 	if !reflect.DeepEqual(got, expected) {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -33,7 +33,7 @@ func Test_inorderTraversal_3(t *testing.T) {
 	got := inorderTraversal(root)
 	expected := []int{}
 	if !reflect.DeepEqual(got, expected) {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -43,6 +43,6 @@ func Test_inorderTraversal_4(t *testing.T) {
 	got := inorderTraversal(root)
 	expected := []int{1}
 	if !reflect.DeepEqual(got, expected) {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }

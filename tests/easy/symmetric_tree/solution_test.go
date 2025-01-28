@@ -12,7 +12,7 @@ func Test_isSymmetric_1(t *testing.T) {
 	got := isSymmetric(root)
 	expected := true
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -22,7 +22,7 @@ func Test_isSymmetric_2(t *testing.T) {
 	got := isSymmetric(root)
 	expected := false
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -32,6 +32,6 @@ func Test_isSymmetric_3(t *testing.T) {
 	got := isSymmetric(root)
 	expected := false
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }

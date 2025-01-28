@@ -12,7 +12,7 @@ func Test_maxDepth_1(t *testing.T) {
 	got := maxDepth(root)
 	expected := 3
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -22,6 +22,6 @@ func Test_maxDepth_2(t *testing.T) {
 	got := maxDepth(root)
 	expected := 2
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }

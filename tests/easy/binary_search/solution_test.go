@@ -10,7 +10,7 @@ func Test_search_1(t *testing.T) {
 	got := search([]int{-1, 0, 3, 5, 9, 12}, 9)
 	expected := 4
 	if got != expected {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -20,6 +20,6 @@ func Test_search_2(t *testing.T) {
 	expected := -1
 	if got != expected {
 		fmt.Printf("%v\n", got)
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }

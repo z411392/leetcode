@@ -12,7 +12,7 @@ func Test_reverseList_1(t *testing.T) {
 	got := ConvertLinkedListToSlice(reverseList(NewLinkedListFromSlice([]int{1, 2, 3, 4, 5})))
 	expected := []int{5, 4, 3, 2, 1}
 	if !reflect.DeepEqual(got, expected) {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -21,7 +21,7 @@ func Test_reverseList_2(t *testing.T) {
 	got := ConvertLinkedListToSlice(reverseList(NewLinkedListFromSlice([]int{1, 2})))
 	expected := []int{2, 1}
 	if !reflect.DeepEqual(got, expected) {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
@@ -30,6 +30,6 @@ func Test_reverseList_3(t *testing.T) {
 	got := ConvertLinkedListToSlice(reverseList(NewLinkedListFromSlice([]int{})))
 	expected := []int{}
 	if !reflect.DeepEqual(got, expected) {
-		t.FailNow()
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }

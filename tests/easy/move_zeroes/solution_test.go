@@ -10,19 +10,21 @@ import (
 
 func Test_moveZeroes_1(t *testing.T) {
 	t.SkipNow()
-	slice := []int{0, 1, 0, 3, 12}
-	moveZeroes(slice)
-	if !reflect.DeepEqual(slice, []int{1, 3, 12, 0, 0}) {
-		fmt.Printf("%v\n", slice)
-		t.FailNow()
+	got := []int{0, 1, 0, 3, 12}
+	moveZeroes(got)
+	expected := []int{1, 3, 12, 0, 0}
+	if !reflect.DeepEqual(got, expected) {
+		fmt.Printf("%v\n", got)
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
 
 func Test_moveZeroes_2(t *testing.T) {
 	t.SkipNow()
-	slice := []int{0}
-	moveZeroes(slice)
-	if !reflect.DeepEqual(slice, []int{0}) {
-		t.FailNow()
+	got := []int{0}
+	moveZeroes(got)
+	expected := []int{0}
+	if !reflect.DeepEqual(got, expected) {
+		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
