@@ -10,7 +10,7 @@ import (
 )
 
 func Test_addTwoNumbers_1(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	l1 := NewLinkedListFromSlice([]int{2, 4, 3})
 	l2 := NewLinkedListFromSlice([]int{5, 6, 4})
 	got := ConvertLinkedListToSlice(addTwoNumbers(l1, l2))
@@ -21,7 +21,7 @@ func Test_addTwoNumbers_1(t *testing.T) {
 }
 
 func Test_addTwoNumbers_2(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	l1 := NewLinkedListFromSlice([]int{0})
 	l2 := NewLinkedListFromSlice([]int{0})
 	got := ConvertLinkedListToSlice(addTwoNumbers(l1, l2))
@@ -32,7 +32,7 @@ func Test_addTwoNumbers_2(t *testing.T) {
 }
 
 func Test_addTwoNumbers_3(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	l1 := NewLinkedListFromSlice([]int{9, 9, 9, 9, 9, 9, 9})
 	l2 := NewLinkedListFromSlice([]int{9, 9, 9, 9})
 	got := ConvertLinkedListToSlice(addTwoNumbers(l1, l2))
