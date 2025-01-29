@@ -6,29 +6,26 @@ package longest_substring_without_repeating_characters
 Given a string s, find the length of the longest substring without repeating characters.
 */
 func lengthOfLongestSubstring(s string) int {
-	// 為每個 index, character 維護各自的 map，一但出現重複的字母就不繼續滾 character
+	// 維護 start, end 兩個 cursors
+	start := -1
+	end := 0
+	// 每當有重複字母出現時 start cursor 就往右移 最大字母長度會重新開始計算 不過先前已經累計的仍會保存
+	seen := make(map[rune]int)
 	maxLength := 0
-	sets := make(map[int](map[rune]bool))
-	for i, c := range s {
-		for j, set := range sets {
-			if _, ok := set[c]; ok {
-				delete(sets, j)
-				continue
-			}
-			set[c] = true
-			if len(set) > maxLength {
-				// for key := range set {
-				// 	fmt.Printf("%v", string(key))
-				// }
-				// fmt.Printf("\n")
-				maxLength = len(set)
-			}
+	for {
+		// end cursor 觸底時結束
+		if end >= len(s) {
+			break
 		}
-		sets[i] = make(map[rune]bool)
-		sets[i][c] = true
-		if maxLength == 0 {
-			maxLength = 1
+		c := rune(s[end])
+		index, exists := seen[c]
+		if exists && index > start {
+			start = index
+			continue
 		}
+		maxLength = max(maxLength, end-start)
+		seen[c] = end
+		end += 1
 	}
 	return maxLength
 }
