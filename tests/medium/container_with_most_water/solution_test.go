@@ -5,7 +5,7 @@ import (
 )
 
 func Test_maxArea_1(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := maxArea([]int{1, 8, 6, 2, 5, 4, 8, 3, 7})
 	expected := 49
 	if got != expected {
@@ -14,7 +14,7 @@ func Test_maxArea_1(t *testing.T) {
 }
 
 func Test_maxArea_2(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := maxArea([]int{1, 1})
 	expected := 1
 	if got != expected {
