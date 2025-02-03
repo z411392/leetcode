@@ -1,6 +1,41 @@
 package three_sum
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
+
+func moveLeft(nums []int, left int, right int) int {
+	held := nums[left]
+	for {
+		left += 1
+		// fmt.Printf("left=%v\n", left)
+		if left >= right {
+			break
+		}
+		current := nums[left]
+		if current != held {
+			break
+		}
+	}
+	return left
+}
+
+func moveRight(nums []int, left int, right int) int {
+	held := nums[right]
+	for {
+		right -= 1
+		// fmt.Printf("right=%v\n", right)
+		if left >= right {
+			break
+		}
+		current := nums[right]
+		if current != held {
+			break
+		}
+	}
+	return right
+}
 
 /*
 Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
@@ -8,81 +43,32 @@ Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
 Notice that the solution set must not contain duplicate triplets.
 */
 func threeSum(nums []int) [][]int {
-	// https://leetcode.com/problems/3sum/solutions/725950/python-5-easy-steps-beats-97-4-annotated/comments/1167162
-	nMap := map[int]bool{}
-	nSlice := []int{}
-	pMap := map[int]bool{}
-	pSlice := []int{}
-	zeros := 0
-	for _, num := range nums {
-		if num == 0 {
-			zeros += 1
-		} else if num < 0 {
-			nMap[num] = true
-			nSlice = append(nSlice, num)
-		} else {
-			pMap[num] = true
-			pSlice = append(pSlice, num)
-		}
-	}
-	combinations := map[string]bool{}
-	results := [][]int{}
-	// 雖然順序不重要，但單元測試是簡單用 deep equal，所以還是把區塊的順序調換
-
-	// -p, -q, r
-	for i := 0; i < len(nSlice)-1; i += 1 {
-		for j := i + 1; j < len(nSlice); j += 1 {
-			n := nSlice[i] + nSlice[j]
-			_, exists := pMap[-n]
-			if !exists {
-				continue
+	// https://leetcode.com/problems/3sum/solutions/295224/go-768-ms-faster-than-100-00
+	results := make([][]int, 0)
+	seen := map[string]bool{}
+	sort.Ints(nums)
+	for i := 0; i < len(nums)-2; i += 1 {
+		target := -nums[i]
+		left := i + 1
+		right := len(nums) - 1
+		for {
+			if left >= right {
+				break
 			}
-			var key string
-			if nSlice[i] < nSlice[j] {
-				key = fmt.Sprintf("%v %v %v", nSlice[i], nSlice[j], -n)
+			found := nums[left] + nums[right]
+			if found == target {
+				key := fmt.Sprintf("%v %v %v", nums[i], nums[left], nums[right])
+				if !seen[key] {
+					results = append(results, []int{nums[i], nums[left], nums[right]})
+					seen[key] = true
+				}
+				left = moveLeft(nums, left, right)
+				right = moveRight(nums, left, right)
+			} else if found > target {
+				right = moveRight(nums, left, right)
 			} else {
-				key = fmt.Sprintf("%v %v %v", nSlice[j], nSlice[i], -n)
+				left = moveLeft(nums, left, right)
 			}
-			if combinations[key] {
-				continue
-			}
-			combinations[key] = true
-			results = append(results, []int{nSlice[i], nSlice[j], -n})
-		}
-	}
-	if zeros > 0 {
-		// 0, -n, n
-		for num := range nMap {
-			_, exists := pMap[-num]
-			if exists {
-				results = append(results, []int{num, 0, -num})
-			}
-		}
-		// 0, 0, 0
-		if zeros > 2 {
-			results = append(results, []int{0, 0, 0})
-		}
-	}
-
-	// p, q, -r
-	for i := 0; i < len(pSlice)-1; i += 1 {
-		for j := i + 1; j < len(pSlice); j += 1 {
-			n := pSlice[i] + pSlice[j]
-			_, exists := nMap[-n]
-			if !exists {
-				continue
-			}
-			var key string
-			if pSlice[i] < pSlice[j] {
-				key = fmt.Sprintf("%v %v %v", -n, pSlice[i], pSlice[j])
-			} else {
-				key = fmt.Sprintf("%v %v %v", -n, pSlice[j], pSlice[i])
-			}
-			if combinations[key] {
-				continue
-			}
-			combinations[key] = true
-			results = append(results, []int{-n, pSlice[i], pSlice[j]})
 		}
 	}
 	return results
