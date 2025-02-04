@@ -28,6 +28,8 @@ func rle(str string) string {
 	return stringBuilder.String()
 }
 
+var cached = map[int]string{}
+
 /*
 The count-and-say sequence is a sequence of digit strings defined by the recursive formula:
 
@@ -41,5 +43,10 @@ func countAndSay(n int) string {
 	if n <= 1 {
 		return "1"
 	}
-	return rle(countAndSay(n - 1))
+	if _, exists := cached[n-1]; exists {
+		return cached[n-1]
+	}
+	result := rle(countAndSay(n - 1))
+	cached[n-1] = result
+	return result
 }

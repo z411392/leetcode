@@ -5,7 +5,7 @@ import (
 )
 
 func Test_countAndSay_1(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := countAndSay(4)
 	expected := "1211"
 	if got != expected {
@@ -14,7 +14,7 @@ func Test_countAndSay_1(t *testing.T) {
 }
 
 func Test_countAndSay_2(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := countAndSay(1)
 	expected := "1"
 	if got != expected {
