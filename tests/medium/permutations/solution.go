@@ -14,11 +14,10 @@ func permute(nums []int) [][]int {
 	}
 	permutations := [][]int{}
 	for index, taken := range nums {
-		lefted := append(append([]int{}, nums[:index]...), nums[index+1:]...)
+		lefted := append([]int{}, nums[:index]...)
+		lefted = append(lefted, nums[index+1:]...)
 		for _, permutation := range permute(lefted) {
-			permutation = append([]int{taken}, permutation...)
-			// fmt.Printf("taken=%v lefted=%v permutation=%v\n", taken, lefted, permutation)
-			permutations = append(permutations, permutation)
+			permutations = append(permutations, append(permutation, taken))
 		}
 	}
 	return permutations
