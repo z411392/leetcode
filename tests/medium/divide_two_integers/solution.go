@@ -30,13 +30,38 @@ func divide(dividend int, divisor int) int {
 	if divisor == 1 {
 		quotient = dividend
 	} else {
+		// https://haogroot.com/2022/06/18/leetcode-29/
+		n := divisor
+		m := 1
+		divisors := []int{}
+		quotients := []int{}
 		for {
-			// fmt.Printf("%v %v\n", dividend, quotient)
-			if dividend < divisor {
+			if n > dividend {
 				break
 			}
-			dividend -= divisor
-			quotient += 1
+			divisors = append([]int{n}, divisors...)   // [48, 24, 12, 6, 3]
+			quotients = append([]int{m}, quotients...) // [16, 8, 4, 2, 1]
+			n <<= 1
+			m <<= 1
+		}
+		// fmt.Printf("%v %v\n", divisors, quotients)
+		remained := dividend
+		for {
+			if remained == 0 {
+				break
+			}
+			found := false
+			for index, divisor := range divisors {
+				if remained >= divisor {
+					found = true
+					remained -= divisor
+					quotient += quotients[index]
+					break
+				}
+			}
+			if !found {
+				break
+			}
 		}
 	}
 	if isDividendNegative != isDivisorNegative {

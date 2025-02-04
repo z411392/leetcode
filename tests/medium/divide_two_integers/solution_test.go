@@ -5,7 +5,7 @@ import (
 )
 
 func Test_divide_1(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := divide(10, 3)
 	expected := 3
 	if got != expected {
@@ -14,9 +14,18 @@ func Test_divide_1(t *testing.T) {
 }
 
 func Test_divide_2(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := divide(7, -3)
 	expected := -2
+	if got != expected {
+		t.Fatalf("expected %v, got %v\n", expected, got)
+	}
+}
+
+func Test_divide_3(t *testing.T) {
+	t.SkipNow()
+	got := divide(2, 2)
+	expected := 1
 	if got != expected {
 		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
