@@ -11,5 +11,49 @@ You must write an algorithm with O(log n) runtime complexity.
 */
 
 func search(nums []int, target int) int {
-	return 0
+	// https://www.cnblogs.com/grandyang/p/4325648.html
+	if len(nums) == 0 {
+		return -1
+	}
+	if len(nums) == 1 {
+		if nums[0] == target {
+			return 0
+		}
+		return -1
+	}
+	left := 0
+	right := len(nums) - 1
+	for {
+		if left >= right {
+			break
+		}
+		if nums[left] == target {
+			return left
+		}
+		if nums[right] == target {
+			return right
+		}
+		middle := left + (right-left)/2
+		if nums[middle] == target {
+			return middle
+		}
+		if nums[middle] > nums[left] {
+			if target > nums[left] && target < nums[middle] {
+				// 若確定是有序且在範圍內則限縮在此範圍
+				right = middle - 1
+			} else {
+				// 否則隨意嘗試另一邊
+				left = middle + 1
+			}
+		} else {
+			if target > nums[middle] && target < nums[right] {
+				// 若確定是有序且在範圍內則限縮在此範圍
+				left = middle + 1
+			} else {
+				// 否則隨意嘗試另一邊
+				right = middle - 1
+			}
+		}
+	}
+	return -1
 }
