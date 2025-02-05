@@ -1,10 +1,5 @@
 package count_and_say
 
-import "math"
-
-// https://stackoverflow.com/questions/47969385/go-float-comparison
-const epsilon = 1e-9
-
 /*
 Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
 */
@@ -14,36 +9,31 @@ func myPow(x float64, n int) float64 {
 	}
 	negative := false
 	if x < 0 {
-		negative = true
+		if n&1 == 1 {
+			negative = true
+		}
 		x = -x
 	}
-	result := float64(x)
+	result := float64(1)
 	if x != 1 {
-		dividing := false
 		if n < 0 {
-			dividing = true
 			n = -n
+			x = 1 / x
 		}
-		if dividing {
-			for range n + 1 {
-				result = result / x
-				if result <= epsilon {
-					result = 0
-					break
-				}
+		// https://leetcode.com/problems/powx-n/solutions/1337794/java-c-simple-o-log-n-easy-faster-than-100-explained/
+		for {
+			if n <= 0 {
+				break
 			}
-		} else {
-			for range n - 1 {
+			if n&1 == 1 {
 				result = result * x
-				if result >= math.MaxFloat64 {
-					result = math.MaxFloat64
-					break
-				}
 			}
+			x *= x
+			n >>= 1
 		}
 	}
-	if n%2 == 1 && negative {
-		result = -result
+	if negative {
+		return -result
 	}
 	return result
 }
