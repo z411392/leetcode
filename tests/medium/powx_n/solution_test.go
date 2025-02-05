@@ -34,7 +34,7 @@ func Test_myPow_3(t *testing.T) {
 func Test_myPow_4(t *testing.T) {
 	// t.SkipNow()
 	got := myPow(2.00, -200000000)
-	expected := 0.25000
+	expected := 0.0
 	if got != expected {
 		t.Fatalf("expected %v, got %v\n", expected, got)
 	}

@@ -1,36 +1,49 @@
 package count_and_say
 
-import (
-	"math/big"
-)
+import "math"
+
+// https://stackoverflow.com/questions/47969385/go-float-comparison
+const epsilon = 1e-9
 
 /*
 Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
 */
 func myPow(x float64, n int) float64 {
-	value := big.NewFloat(x)
 	if n == 0 {
 		return 1
 	}
-	nagative := false
-	if n < 0 {
-		nagative = true
-		n = -n
+	negative := false
+	if x < 0 {
+		negative = true
+		x = -x
 	}
-	result := big.NewFloat(x)
-	if nagative {
-		for range n + 1 {
-			// fmt.Printf("before=%v\n", result)
-			result = big.NewFloat(0).Quo(result, value)
-			// fmt.Printf("after=%v\n", result)
+	result := float64(x)
+	if x != 1 {
+		dividing := false
+		if n < 0 {
+			dividing = true
+			n = -n
 		}
-	} else {
-		for range n - 1 {
-			// fmt.Printf("before=%v\n", result)
-			result = big.NewFloat(0).Mul(result, value)
-			// fmt.Printf("after=%v\n", result)
+		if dividing {
+			for range n + 1 {
+				result = result / x
+				if result <= epsilon {
+					result = 0
+					break
+				}
+			}
+		} else {
+			for range n - 1 {
+				result = result * x
+				if result >= math.MaxFloat64 {
+					result = math.MaxFloat64
+					break
+				}
+			}
 		}
 	}
-	y, _ := result.Float64()
-	return y
+	if n%2 == 1 && negative {
+		result = -result
+	}
+	return result
 }
