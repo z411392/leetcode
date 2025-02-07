@@ -3,6 +3,21 @@ package word_search
 func exist(board [][]byte, word string) bool {
 	var dfs func(position []int, word string, seen map[[2]int]bool) bool
 	dfs = func(position []int, word string, seen map[[2]int]bool) bool {
+		if seen[[2]int{position[0], position[1]}] {
+			return false
+		}
+		if position[0] < 0 {
+			return false
+		}
+		if position[0] > len(board)-1 {
+			return false
+		}
+		if position[1] < 0 {
+			return false
+		}
+		if position[1] > len(board[0])-1 {
+			return false
+		}
 		if word[0] != board[position[0]][position[1]] {
 			return false
 		}
@@ -10,33 +25,9 @@ func exist(board [][]byte, word string) bool {
 			return true
 		}
 		seen[[2]int{position[0], position[1]}] = true
-		// 上
-		if position[0]-1 >= 0 && !seen[[2]int{position[0] - 1, position[1]}] {
-			found := dfs([]int{position[0] - 1, position[1]}, word[1:], seen)
-			if found {
-				return true
-			}
-		}
-		// 下
-		if position[0]+1 <= len(board)-1 && !seen[[2]int{position[0] + 1, position[1]}] {
-			found := dfs([]int{position[0] + 1, position[1]}, word[1:], seen)
-			if found {
-				return true
-			}
-		}
-		// 左
-		if position[1]-1 >= 0 && !seen[[2]int{position[0], position[1] - 1}] {
-			found := dfs([]int{position[0], position[1] - 1}, word[1:], seen)
-			if found {
-				return true
-			}
-		}
-		// 右
-		if position[1]+1 <= len(board[0])-1 && !seen[[2]int{position[0], position[1] + 1}] {
-			found := dfs([]int{position[0], position[1] + 1}, word[1:], seen)
-			if found {
-				return true
-			}
+		found := dfs([]int{position[0] - 1, position[1]}, word[1:], seen) || dfs([]int{position[0] + 1, position[1]}, word[1:], seen) || dfs([]int{position[0], position[1] - 1}, word[1:], seen) || dfs([]int{position[0], position[1] + 1}, word[1:], seen)
+		if found {
+			return true
 		}
 		delete(seen, [2]int{position[0], position[1]})
 		return false
