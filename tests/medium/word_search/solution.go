@@ -1,41 +1,48 @@
 package word_search
 
 func exist(board [][]byte, word string) bool {
-	var dfs func(position []int, word string, seen map[[2]int]bool) bool
-	dfs = func(position []int, word string, seen map[[2]int]bool) bool {
-		if seen[[2]int{position[0], position[1]}] {
+	rows, columns := len(board), len(board[0])
+	directions := [][2]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+
+	var dfs func(row, column int, word string, seen map[int]bool) bool
+	dfs = func(row, column int, word string, seen map[int]bool) bool {
+		if row < 0 || row >= rows || column < 0 || column >= columns {
 			return false
 		}
-		if position[0] < 0 {
+
+		key := row*columns + column
+		if seen[key] {
 			return false
 		}
-		if position[0] > len(board)-1 {
+
+		if word[0] != board[row][column] {
 			return false
 		}
-		if position[1] < 0 {
-			return false
-		}
-		if position[1] > len(board[0])-1 {
-			return false
-		}
-		if word[0] != board[position[0]][position[1]] {
-			return false
-		}
+
 		if len(word) == 1 {
 			return true
 		}
-		seen[[2]int{position[0], position[1]}] = true
-		found := dfs([]int{position[0] - 1, position[1]}, word[1:], seen) || dfs([]int{position[0] + 1, position[1]}, word[1:], seen) || dfs([]int{position[0], position[1] - 1}, word[1:], seen) || dfs([]int{position[0], position[1] + 1}, word[1:], seen)
-		if found {
-			return true
+
+		seen[key] = true
+		nextWord := word[1:]
+
+		for _, dir := range directions {
+			newRow, newCol := row+dir[0], column+dir[1]
+			if dfs(newRow, newCol, nextWord, seen) {
+				return true
+			}
 		}
-		delete(seen, [2]int{position[0], position[1]})
+
+		delete(seen, key)
 		return false
 	}
-	for row, cells := range board {
-		for column := range cells {
-			found := dfs([]int{row, column}, word, map[[2]int]bool{})
-			if found {
+
+	for row := 0; row < rows; row++ {
+		for col := 0; col < columns; col++ {
+			if board[row][col] != word[0] {
+				continue
+			}
+			if dfs(row, col, word, make(map[int]bool)) {
 				return true
 			}
 		}
