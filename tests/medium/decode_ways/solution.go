@@ -31,25 +31,28 @@ Given a string s containing only digits, return the number of ways to decode it.
 The test cases are generated so that the answer fits in a 32-bit integer.
 */
 func numDecodings(s string) int {
-	if len(s) == 0 {
-		return 0
-	}
-	if s[0] == '0' {
-		return 0
-	}
-	// fmt.Printf("%s\n", s)
-	if len(s) == 1 {
-		return 1
-	}
-	ways := 0
-	n, _ := strconv.Atoi(s[:2])
-	if n <= 26 {
-		if len(s[2:]) == 0 {
-			ways += 1
-		} else {
-			ways += numDecodings(s[2:])
+	memo := make(map[int]int)
+	var countDecodingWays func(s string, index int) int
+	countDecodingWays = func(s string, index int) int {
+		if val, exists := memo[index]; exists {
+			return val
 		}
+		if index == len(s) {
+			return 1
+		}
+		if s[index] == '0' {
+			return 0
+		}
+		if index == len(s)-1 {
+			return 1
+		}
+		ways := countDecodingWays(s, index+1)
+		twoDigits, _ := strconv.Atoi(s[index : index+2])
+		if twoDigits <= 26 {
+			ways += countDecodingWays(s, index+2)
+		}
+		memo[index] = ways
+		return ways
 	}
-	ways += numDecodings(s[1:])
-	return ways
+	return countDecodingWays(s, 0)
 }
