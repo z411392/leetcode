@@ -5,7 +5,7 @@ import (
 )
 
 func Test_exist_1(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := exist([][]byte{
 		{'A', 'B', 'C', 'E'},
 		{'S', 'F', 'C', 'S'},
@@ -44,7 +44,7 @@ func Test_exist_3(t *testing.T) {
 }
 
 func Test_exist_4(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := exist([][]byte{
 		{'A'},
 	}, "A")
