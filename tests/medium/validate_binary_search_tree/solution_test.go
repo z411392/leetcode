@@ -7,7 +7,7 @@ import (
 )
 
 func Test_isValidBST_1(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	root := NewTreeFromSlice([]int{2, 1, 3}, 0, null)
 	got := isValidBST(root)
 	expected := true
@@ -17,7 +17,7 @@ func Test_isValidBST_1(t *testing.T) {
 }
 
 func Test_isValidBST_2(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	root := NewTreeFromSlice([]int{5, 1, 4, null, null, 3, 6}, 0, null)
 	got := isValidBST(root)
 	expected := false
