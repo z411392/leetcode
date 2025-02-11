@@ -8,53 +8,20 @@ You have a car with an unlimited gas tank and it costs cost[i] of gas to travel 
 Given two integer arrays gas and cost, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1. If there exists a solution, it is guaranteed to be unique.
 */
 func canCompleteCircuit(gas []int, cost []int) int {
-	positions := len(gas)
-	if positions == 0 {
+	totalGas, currentGas := 0, 0
+	startStation := 0
+
+	for i := 0; i < len(gas); i++ {
+		totalGas += gas[i] - cost[i]
+		currentGas += gas[i] - cost[i] // 只要確保過程中 currentGas 不出現負數即可
+		if currentGas < 0 {            // 一但出現負數就將 startStation 換一個位置並將 currentGas 清空
+			startStation = i + 1
+			currentGas = 0
+		}
+	}
+	// 如果 totalGas >= 0 則一定存在解
+	if totalGas < 0 {
 		return -1
 	}
-	if positions == 1 {
-		// 要能夠出發
-		if gas[0] <= 0 {
-			return -1
-		}
-		// 要能夠回到自己
-		if (gas[0] - cost[0]) < 0 {
-			return -1
-		}
-		return 0
-	}
-	diffs := []int{}
-	for i := 0; i < positions; i += 1 {
-		diff := gas[i] - cost[i]
-		diffs = append(diffs, diff)
-	}
-	for i := 0; i < positions; i += 1 {
-		if diffs[i] <= 0 {
-			continue
-		}
-		sum := 0
-		traversed := 0
-		found := false
-		for {
-			traversed += 1
-			next := (i + traversed - 1) % positions
-			sum += diffs[next]
-			// fmt.Printf("i=%v, next=%v, traversed=%v, positions=%v, sum=%v, \n", i, next, traversed, positions, sum)
-			if traversed == positions {
-				// 已走完全部節點時能源不小於 0 即可（小於 0 表示無法到達）
-				if sum < 0 {
-					break
-				}
-				return i
-			}
-			// 還未走完全部節點時如果能源已歸零就再也無法移動
-			if sum <= 0 {
-				break
-			}
-		}
-		if found {
-			return i
-		}
-	}
-	return -1
+	return startStation
 }
