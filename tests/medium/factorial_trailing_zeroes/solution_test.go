@@ -5,7 +5,7 @@ import (
 )
 
 func Test_trailingZeroes_1(t *testing.T) {
-	t.SkipNow()
+	// t.SkipNow()
 	got := trailingZeroes(3)
 	expected := 0
 	if got != expected {
@@ -14,7 +14,7 @@ func Test_trailingZeroes_1(t *testing.T) {
 }
 
 func Test_trailingZeroes_2(t *testing.T) {
-	t.SkipNow()
+	// t.SkipNow()
 	got := trailingZeroes(5)
 	expected := 1
 	if got != expected {
@@ -23,7 +23,7 @@ func Test_trailingZeroes_2(t *testing.T) {
 }
 
 func Test_trailingZeroes_3(t *testing.T) {
-	t.SkipNow()
+	// t.SkipNow()
 	got := trailingZeroes(0)
 	expected := 0
 	if got != expected {
