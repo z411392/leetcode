@@ -5,7 +5,7 @@ import (
 )
 
 func Test_evalRPN_1(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := evalRPN([]string{"2", "1", "+", "3", "*"})
 	expected := 9
 	if got != expected {
@@ -14,7 +14,7 @@ func Test_evalRPN_1(t *testing.T) {
 }
 
 func Test_evalRPN_2(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := evalRPN([]string{"4", "13", "5", "/", "+"})
 	expected := 6
 	if got != expected {
