@@ -21,3 +21,12 @@ func Test_fractionToDecimal_2(t *testing.T) {
 		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
+
+func Test_fractionToDecimal_3(t *testing.T) {
+	// t.SkipNow()
+	got := fractionToDecimal(4, 333)
+	expected := "0.(012)"
+	if got != expected {
+		t.Fatalf("expected %v, got %v\n", expected, got)
+	}
+}
