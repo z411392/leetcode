@@ -30,3 +30,12 @@ func Test_countPrimes_3(t *testing.T) {
 		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
+
+func Test_countPrimes_4(t *testing.T) {
+	// t.SkipNow()
+	got := countPrimes(5)
+	expected := 2
+	if got != expected {
+		t.Fatalf("expected %v, got %v\n", expected, got)
+	}
+}
