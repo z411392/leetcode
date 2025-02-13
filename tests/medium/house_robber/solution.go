@@ -12,12 +12,12 @@ func rob(nums []int) int {
 	if len(nums) == 1 {
 		return nums[0]
 	}
-	dp := make([]int, len(nums))
-	dp[0] = nums[0]
-	dp[1] = max(nums[0], nums[1])
-	for i := 2; i < len(nums); i += 1 {
-		dp[i] = max(nums[i]+dp[i-2], dp[i-1])
+	prev1, prev2 := 0, 0
+	for _, num := range nums {
+		current := max(prev2+num, prev1)
+		prev2 = prev1
+		prev1 = current
 	}
 	// fmt.Printf("%v\n", dp)
-	return dp[len(dp)-1]
+	return prev1
 }
