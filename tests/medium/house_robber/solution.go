@@ -12,19 +12,12 @@ func rob(nums []int) int {
 	if len(nums) == 1 {
 		return nums[0]
 	}
-	even := 0
-	odd := 0
-	i := 0
-	for {
-		if i >= len(nums) {
-			break
-		}
-		even += nums[i]
-		if i+1 >= len(nums) {
-			break
-		}
-		odd += nums[i+1]
-		i += 2
+	dp := make([]int, len(nums))
+	dp[0] = nums[0]
+	dp[1] = max(nums[0], nums[1])
+	for i := 2; i < len(nums); i += 1 {
+		dp[i] = max(nums[i]+dp[i-2], dp[i-1])
 	}
-	return max(even, odd)
+	// fmt.Printf("%v\n", dp)
+	return dp[len(dp)-1]
 }
