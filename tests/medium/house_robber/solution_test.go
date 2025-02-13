@@ -21,3 +21,12 @@ func Test_rob_2(t *testing.T) {
 		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
 }
+
+func Test_rob_3(t *testing.T) {
+	// t.SkipNow()
+	got := rob([]int{2, 1, 1, 2})
+	expected := 4
+	if got != expected {
+		t.Fatalf("expected %v, got %v\n", expected, got)
+	}
+}
