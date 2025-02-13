@@ -7,11 +7,7 @@ Given an integer array nums, rotate the array to the right by k steps, where k i
 */
 func rotate(nums []int, k int) {
 	shift := k % len(nums)
-	before := make([]int, shift)
-	copy(before, nums[len(nums)-shift:])
-	after := make([]int, len(nums[:len(nums)-shift]))
-	copy(after, nums[:len(nums)-shift])
-	for i, num := range slices.Concat(before, after) {
+	for i, num := range slices.Concat(nums[len(nums)-shift:], nums[:len(nums)-shift]) {
 		nums[i] = num
 	}
 }
