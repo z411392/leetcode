@@ -36,12 +36,17 @@ func isPrimeFunc() IsPrime {
 Given an integer n, return the number of prime numbers that are strictly less than n.
 */
 func countPrimes(n int) int {
-	if n <= 1 {
+	if n <= 2 {
 		return 0
 	}
+
+	if n == 3 {
+		return 1
+	}
+
 	isPrime := isPrimeFunc()
-	primes := 0
-	for i := 2; i < n; i += 1 {
+	primes := 1
+	for i := 3; i < n; i += 2 {
 		if isPrime(i) {
 			primes += 1
 		}
