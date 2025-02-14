@@ -14,46 +14,18 @@ Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in
 According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
 */
 func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
-	if root == nil {
-		return nil
+	if root == nil || root == p || root == q {
+		return root
 	}
-	var ancestorsOf func(node *TreeNode, target *TreeNode) []*TreeNode
-	ancestorsOf = func(node *TreeNode, target *TreeNode) []*TreeNode {
-		if node == target {
-			return []*TreeNode{node}
-		}
-		if node.Left != nil {
-			ancestors := ancestorsOf(node.Left, target)
-			if ancestors != nil {
-				return append(ancestors, node)
-			}
-		}
-		if node.Right != nil {
-			ancestors := ancestorsOf(node.Right, target)
-			if ancestors != nil {
-				return append(ancestors, node)
-			}
-		}
-		return nil
+
+	left := lowestCommonAncestor(root.Left, p, q)
+	right := lowestCommonAncestor(root.Right, p, q)
+
+	if left != nil && right != nil {
+		return root // p 和 q 分別在左右子樹
 	}
-	ptrs1 := ancestorsOf(root, p)
-	// fmt.Printf("%v\n", ptrs1)
-	ptrs2 := ancestorsOf(root, q)
-	// fmt.Printf("%v\n", ptrs2)
-	var lca *TreeNode = nil
-	for {
-		if len(ptrs1) == 0 || len(ptrs2) == 0 {
-			break
-		}
-		ptr1 := ptrs1[len(ptrs1)-1]
-		ptr2 := ptrs2[len(ptrs2)-1]
-		if ptr1 == ptr2 {
-			ptrs1 = ptrs1[:len(ptrs1)-1]
-			ptrs2 = ptrs2[:len(ptrs2)-1]
-			lca = ptr1
-			continue
-		}
-		break
+	if left != nil {
+		return left // p 和 q 都在左子樹
 	}
-	return lca
+	return right // p 和 q 都在右子樹
 }
