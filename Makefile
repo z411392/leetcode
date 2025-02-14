@@ -17,7 +17,7 @@ test32:
 test:
 	@go test \
 		-count=1 \
-		-v ./tests/medium/lowest_common_ancestor_of_a_binary_tree/... | sed -e "/PASS/s//$$(printf "\033[32mPASS\033[0m")/" \
+		-v ./tests/medium/delete_node_in_a_linked_list/... | sed -e "/PASS/s//$$(printf "\033[32mPASS\033[0m")/" \
 			-e "/FAIL/s//$$(printf "\033[31mFAIL\033[0m")/" \
 			-e "/SKIP/s//$$(printf "\033[33mSKIP\033[0m")/" \
 			-e "/^=== RUN/d" \
