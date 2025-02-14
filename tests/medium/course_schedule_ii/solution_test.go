@@ -16,8 +16,8 @@ func Test_findOrder_1(t *testing.T) {
 
 func Test_findOrder_2(t *testing.T) {
 	// t.SkipNow()
-	got := findOrder(2, [][]int{{1, 0}, {0, 1}})
-	expected := []int{0, 2, 1, 3}
+	got := findOrder(4, [][]int{{1, 0}, {2, 0}, {3, 1}, {3, 2}})
+	expected := []int{0, 1, 2, 3}
 	if !reflect.DeepEqual(got, expected) {
 		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
