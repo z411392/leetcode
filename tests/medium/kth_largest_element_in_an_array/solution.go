@@ -6,35 +6,35 @@ import (
 )
 
 func quickSelect(nums []int, left, right, k int) int {
-	pivotIndex := rand.Intn(right-left+1) + left // 隨機選 pivot
+	if left == right {
+		return left
+	}
+
+	pivotIndex := rand.Intn(right-left+1) + left
 	pivot := nums[pivotIndex]
 
-	// 把 pivot 移到最後
-	nums[pivotIndex], nums[right] = nums[right], nums[pivotIndex]
-
-	// Partition: 所有比 pivot 大的放左邊
-	storeIndex := left
-	// storeIndex 表示在整個子陣列內找到幾個比 pivot 大的元素。
-	// 若 storeIndex 恰好等於 k - 1，則 pivot 會剛好是第 k 大的元素。
-	for i := left; i < right; i++ {
-		if nums[i] > pivot { // 找前 k 大，所以比 pivot 大的排左邊
-			nums[i], nums[storeIndex] = nums[storeIndex], nums[i]
-			storeIndex++
+	// 三路切分: lt 表示小於 pivot 的右邊界
+	//          gt 表示大於 pivot 的左邊界
+	lt, i, gt := left, left, right
+	for i <= gt {
+		if nums[i] > pivot {
+			nums[lt], nums[i] = nums[i], nums[lt]
+			lt++
+			i++
+		} else if nums[i] < pivot {
+			nums[i], nums[gt] = nums[gt], nums[i]
+			gt--
+		} else {
+			i++
 		}
 	}
-
-	// 把 pivot 放回正確位置
-	nums[storeIndex], nums[right] = nums[right], nums[storeIndex]
-
-	// pivot 剛好是第 k 大？
-	if storeIndex == k-1 {
-		return storeIndex
+	if k-1 < lt {
+		return quickSelect(nums, left, lt-1, k)
 	}
-	if storeIndex > k-1 {
-		return quickSelect(nums, left, storeIndex-1, k) // 往左邊找
-	} else {
-		return quickSelect(nums, storeIndex+1, right, k) // 往右邊找
+	if k-1 > gt {
+		return quickSelect(nums, gt+1, right, k)
 	}
+	return lt
 }
 
 /*
