@@ -9,30 +9,31 @@ import (
 const null = -1
 
 /*
-*
 Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
 */
 func kthSmallest(root *TreeNode, k int) int {
 	found := 0
-	if root == nil {
+	if root == nil || k == 0 {
 		return found
 	}
-	visited := 0
+	n := 0
 	var inorderTraversal func(node *TreeNode)
 	inorderTraversal = func(node *TreeNode) {
-		for {
-			if node.Left != nil {
-				inorderTraversal(node.Left)
-			}
-			visited += 1
-			if visited == k {
-				found = node.Val
-				return
-			}
-			if node.Right != nil {
-				inorderTraversal(node.Right)
-			}
+		if n >= k {
+			return
+		}
+		if node.Left != nil {
+			inorderTraversal(node.Left)
+		}
+		n += 1
+		if n == k {
+			found = node.Val
+			return
+		}
+		if node.Right != nil {
+			inorderTraversal(node.Right)
 		}
 	}
+	inorderTraversal(root)
 	return found
 }
