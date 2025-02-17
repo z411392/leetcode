@@ -2,7 +2,7 @@ package game_of_life
 
 func gameOfLife(board [][]int) {
 	m := len(board)
-	n := len(board[0])
+
 	populationAt := func(row, column int) int {
 		population := 0
 		dirs := [][]int{
@@ -22,6 +22,7 @@ func gameOfLife(board [][]int) {
 				continue
 			}
 			neighborColumn := column + dir[1]
+			n := len(board[row])
 			if neighborColumn < 0 || neighborColumn >= n {
 				continue
 			}
@@ -31,6 +32,7 @@ func gameOfLife(board [][]int) {
 	}
 	changing := make([][]int, m)
 	for row, cells := range board {
+		n := len(cells)
 		cellsChanging := make([]int, n)
 		for column, cell := range cells {
 			if cell == 0 {
