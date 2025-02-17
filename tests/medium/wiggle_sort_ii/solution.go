@@ -1,27 +1,25 @@
 package wiggle_sort_ii
 
-import (
-	"slices"
-)
+import "sort"
 
 func wiggleSort(nums []int) {
-	cloned := slices.Clone(nums)
-	slices.Sort(cloned)
-	left, right := cloned[:len(nums)/2], cloned[len(nums)/2:]
-	i := -1
-	for {
-		if i == len(nums)-1 {
-			break
-		}
-		if len(left) > 0 {
-			i += 1
-			nums[i] = left[0]
-			left = left[1:]
-		}
-		if len(right) > 0 {
-			i += 1
-			nums[i] = right[0]
-			right = right[1:]
-		}
+	n := len(nums)
+	// 複製並排序數組
+	temp := make([]int, n)
+	copy(temp, nums)
+	sort.Ints(temp)
+
+	// 從大到小填充
+	// 奇數位置先填充較大的數
+	// mid := (n - 1) / 2
+	j := n - 1
+	for i := 1; i < n; i += 2 {
+		nums[i] = temp[j]
+		j--
+	}
+	// 偶數位置填充剩下的數
+	for i := 0; i < n; i += 2 {
+		nums[i] = temp[j]
+		j--
 	}
 }
