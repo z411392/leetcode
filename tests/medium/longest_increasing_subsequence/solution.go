@@ -1,24 +1,27 @@
 package longest_increasing_subsequence
 
-import (
-	"slices"
-)
+import "sort"
 
 func lengthOfLIS(nums []int) int {
-	// https://medium.com/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/leetcode-%E8%A7%A3%E9%A1%8C%E7%B4%80%E9%8C%84-300-longest-increasing-subsequence-f160358db4d1
-	dp := make([]int, len(nums))
-	for i := 0; i < len(nums); i += 1 {
-		dp[i] = 1
+	if len(nums) == 0 {
+		return 0
 	}
-	for i := 1; i < len(nums); i += 1 {
-		for j := 0; j < i; j++ {
-			if nums[i] <= nums[j] {
-				continue
-			}
-			// fmt.Printf("nums[%v]=%v, nums[%v]=%v\n", i, nums[i], j, nums[j])
-			dp[i] = max(dp[i], dp[j]+1)
+
+	// tails[i] 表示長度為 i+1 的遞增子序列的最小末尾值
+	tails := make([]int, 0)
+
+	for _, num := range nums {
+		// 用二分搜尋找到第一個大於等於 num 的位置
+		i := sort.SearchInts(tails, num)
+
+		// 如果找到的位置等於 tails 的長度，表示 num 比所有值都大
+		if i == len(tails) {
+			tails = append(tails, num)
+		} else {
+			// 更新該位置的值
+			tails[i] = num
 		}
 	}
-	// fmt.Printf("%v\n", dp)
-	return slices.Max(dp)
+
+	return len(tails)
 }
