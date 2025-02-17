@@ -17,7 +17,7 @@ test32:
 test:
 	@go test \
 		-count=1 \
-		-v ./tests/medium/coin_change/... | sed -e "/PASS/s//$$(printf "\033[32mPASS\033[0m")/" \
+		-v ./tests/medium/wiggle_sort_ii/... | sed -e "/PASS/s//$$(printf "\033[32mPASS\033[0m")/" \
 			-e "/FAIL/s//$$(printf "\033[31mFAIL\033[0m")/" \
 			-e "/SKIP/s//$$(printf "\033[33mSKIP\033[0m")/" \
 			-e "/^=== RUN/d" \
