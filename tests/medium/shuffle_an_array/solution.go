@@ -1,9 +1,7 @@
 package shuffle_an_array
 
 import (
-	"iter"
 	"math/rand"
-	"slices"
 	"time"
 )
 
@@ -24,15 +22,10 @@ func (this *Solution) Reset() []int {
 }
 
 func (this *Solution) Shuffle() []int {
-	iter := iter.Seq[int](func(yield func(num int) bool) {
-		indexes := this.Random.Perm(len(this.nums))
-		// fmt.Printf("%v\n", indexes)
-		for _, index := range indexes {
-			keepGoing := yield(this.nums[index])
-			if !keepGoing {
-				return
-			}
-		}
-	})
-	return slices.AppendSeq([]int{}, iter)
+	indexes := this.Random.Perm(len(this.nums))
+	values := make([]int, len(this.nums))
+	for i, index := range indexes {
+		values[i] = this.nums[index]
+	}
+	return values
 }
