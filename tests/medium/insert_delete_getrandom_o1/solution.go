@@ -9,12 +9,14 @@ import (
 type RandomizedSet struct {
 	Values map[int]int
 	Keys   []int
+	Random *rand.Rand
 }
 
 func Constructor() RandomizedSet {
 	return RandomizedSet{
 		Values: make(map[int]int),
 		Keys:   []int{},
+		Random: rand.New(rand.NewSource(time.Now().UnixNano())),
 	}
 }
 
@@ -40,7 +42,6 @@ func (this *RandomizedSet) Remove(val int) bool {
 }
 
 func (this *RandomizedSet) GetRandom() int {
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	val := this.Keys[r.Intn(len(this.Keys))]
+	val := this.Keys[this.Random.Intn(len(this.Keys))]
 	return val
 }
