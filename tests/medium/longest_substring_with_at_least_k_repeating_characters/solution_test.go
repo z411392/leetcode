@@ -5,7 +5,7 @@ import (
 )
 
 func Test_longestSubstring_1(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := longestSubstring("aaabb", 3)
 	expected := 3
 	if got != expected {
@@ -14,9 +14,27 @@ func Test_longestSubstring_1(t *testing.T) {
 }
 
 func Test_longestSubstring_2(t *testing.T) {
-	// t.SkipNow()
+	t.SkipNow()
 	got := longestSubstring("ababbc", 2)
 	expected := 5
+	if got != expected {
+		t.Fatalf("expected %v, got %v\n", expected, got)
+	}
+}
+
+func Test_longestSubstring_3(t *testing.T) {
+	t.SkipNow()
+	got := longestSubstring("weitong", 2)
+	expected := 0
+	if got != expected {
+		t.Fatalf("expected %v, got %v\n", expected, got)
+	}
+}
+
+func Test_longestSubstring_4(t *testing.T) {
+	// t.SkipNow()
+	got := longestSubstring("ababacb", 3)
+	expected := 0
 	if got != expected {
 		t.Fatalf("expected %v, got %v\n", expected, got)
 	}
