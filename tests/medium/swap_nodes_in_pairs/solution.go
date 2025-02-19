@@ -7,5 +7,12 @@ import (
 )
 
 func swapPairs(head *ListNode) *ListNode {
-	return nil
+	// https://leetcode.com/problems/swap-nodes-in-pairs/solutions/300006/go-0-ms-faster-than-100-00-easy-code-recursion/
+	if head == nil || head.Next == nil {
+		return head
+	}
+	newHead := head.Next
+	head.Next = swapPairs(head.Next.Next)
+	newHead.Next = head
+	return newHead
 }
